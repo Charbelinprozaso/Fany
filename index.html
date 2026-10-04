@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Fany</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05060b;--card:rgba(12,15,26,.85);--g1:#dfba73;--g2:#f7e2b0;--rose:#e07a93;--em:#34d399;--tx:#f8fafc;--soft:#cbd5e1;--mut:#64748b;--disp:'Italiana',serif;--body:'Plus Jakarta Sans',sans-serif;--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:var(--bg);font-family:var(--body);color:var(--tx);display:flex;align-items:center;justify-content:center;padding:32px 16px;overflow-x:hidden}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+.aurora{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.sph{position:absolute;border-radius:50%;filter:blur(110px);opacity:.34;animation:drift 24s infinite alternate ease-in-out}
+.s1{width:650px;height:650px;background:radial-gradient(circle,#312e81,#1e1b4b 55%,transparent 75%);top:-180px;left:-150px}
+.s2{width:700px;height:700px;background:radial-gradient(circle,#831843,#dfba73 45%,transparent 75%);bottom:-200px;right:-150px;animation-delay:-9s;opacity:.28}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-40px,60px) scale(.94)}}
+
+.modal{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(14,18,32,.94),rgba(5,6,11,.98));backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);transition:opacity 1s,visibility 1s}
+.modal.vanished{opacity:0;visibility:hidden;pointer-events:none}
+.env{position:relative;width:330px;max-width:88vw;height:220px;cursor:pointer;transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+.env:hover{transform:translateY(-8px) scale(1.03)}
+.env-hull{position:absolute;inset:0;background:linear-gradient(145deg,#1d2238,#111422);border-radius:18px;border:1.5px solid rgba(223,186,115,.4);box-shadow:0 30px 60px -15px rgba(0,0,0,.9);overflow:hidden}
+.env-lid{position:absolute;top:0;left:0;width:0;height:0;border-left:165px solid transparent;border-right:165px solid transparent;border-top:118px solid #262e4a;transform-origin:top;transition:transform .8s cubic-bezier(.4,0,.2,1);z-index:5}
+.env-pocket{position:absolute;bottom:0;left:0;width:0;height:0;border-left:165px solid #141727;border-right:165px solid #141727;border-bottom:125px solid #1c2136;z-index:4}
+.seal{position:absolute;top:82px;left:50%;transform:translateX(-50%);width:62px;height:62px;background:radial-gradient(circle at 35% 30%,#fff1d6,#dfba73 35%,#ad7c2b 80%,#6e4911);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 25px rgba(0,0,0,.6),0 0 25px rgba(223,186,115,.5);z-index:6;transition:transform .6s,opacity .5s}
+.seal span{font-family:var(--disp);font-size:24px;color:#12141f;font-weight:700}
+.env.open .env-lid{transform:rotateX(180deg);z-index:1}
+.env.open .seal{transform:translateX(-50%) scale(.4) rotate(45deg);opacity:0}
+.prompt{margin-top:38px;font-family:var(--disp);font-size:20px;color:var(--g2);animation:glow 2.5s infinite ease-in-out}
+@keyframes glow{0%,100%{opacity:.45}50%{opacity:1}}
+
+.wrap{position:relative;z-index:1;width:100%;max-width:580px;border-radius:32px;padding:1.5px;background:linear-gradient(140deg,rgba(223,186,115,.85),rgba(255,255,255,.2) 28%,rgba(224,122,147,.65) 70%,rgba(223,186,115,.5));box-shadow:0 45px 90px -20px rgba(0,0,0,.95),0 0 70px -10px rgba(223,186,115,.3);opacity:0;transform:translateY(50px) scale(.95);transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1)}
+.wrap.show{opacity:1;transform:none}
+.inner{background:var(--card);backdrop-filter:blur(35px);-webkit-backdrop-filter:blur(35px);border-radius:31px;padding:44px 38px}
+.bar{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(223,186,115,.22);padding-bottom:16px;margin-bottom:26px}
+.badge{font-family:var(--disp);font-size:19px;color:var(--g1);display:inline-flex;align-items:center;gap:10px}
+.beacon{width:8px;height:8px;background:var(--em);border-radius:50%;box-shadow:0 0 12px var(--em);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.8)}}
+.tag{font-family:var(--mono);font-size:11.5px;color:var(--mut)}
+.console{font-family:var(--mono);font-size:12.5px;line-height:1.9;color:var(--soft);background:rgba(6,8,15,.75);border:1px solid rgba(223,186,115,.16);border-radius:16px;padding:18px 22px;margin-bottom:28px}
+.c-p{color:var(--g1)}.c-v{color:var(--rose)}.c-s{color:#86efac}
+.caret{display:inline-block;width:7px;height:14px;background:var(--g1);vertical-align:middle;animation:blink .9s infinite}
+@keyframes blink{50%{opacity:0}}
+
+.body{display:none}
+.body.on{display:block;animation:rev .8s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes rev{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+h1{font-family:var(--disp);font-size:38px;font-weight:400;line-height:1.15;color:var(--g2);margin-bottom:22px}
+p.t{font-size:15.5px;line-height:1.85;color:#d1d5db;margin-bottom:18px}
+.em{color:var(--g2);border-bottom:1px dotted var(--g1);font-weight:500}
+.close{font-family:var(--disp);font-size:22px;color:var(--rose);margin:26px 0;display:block}
+
+.stage{display:none}
+.stage.on{display:block;animation:rev .5s cubic-bezier(.16,1,.3,1) forwards}
+.qbox{background:linear-gradient(180deg,rgba(223,186,115,.09),rgba(224,122,147,.05));border:1px solid rgba(223,186,115,.25);border-radius:24px;padding:30px 22px;text-align:center}
+.qbox h2{font-family:var(--disp);font-size:29px;font-weight:400;margin-bottom:8px}
+.qbox .sub{font-size:13.5px;color:var(--mut);margin-bottom:24px}
+.actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+button{font-family:var(--body);font-size:15px;font-weight:600;padding:14px 26px;border-radius:14px;border:none;cursor:pointer;transition:all .25s}
+button:focus-visible{outline:2px solid var(--g2);outline-offset:3px}
+.yes{background:linear-gradient(135deg,#dfba73,#caa360);color:#0f1118;box-shadow:0 8px 25px -6px rgba(223,186,115,.6)}
+.yes:hover{transform:translateY(-3px);box-shadow:0 14px 32px -6px rgba(223,186,115,.8)}
+.later{background:rgba(255,255,255,.04);color:var(--soft);border:1.5px solid rgba(255,255,255,.12)}
+.later:hover{background:rgba(255,255,255,.08);color:var(--tx)}
+.done{text-align:center;padding:26px 14px}
+.done h2{font-family:var(--disp);font-size:34px;font-weight:400;color:var(--g2);margin-bottom:14px}
+.done p{font-size:15px;color:var(--soft);line-height:1.75}
+.done p.s{font-size:13px;color:var(--mut);margin-top:14px}
+@media(max-width:480px){.inner{padding:32px 22px}h1{font-size:31px}.qbox h2{font-size:25px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="aurora"><div class="sph s1"></div><div class="sph s2"></div></div>
+
+<div class="modal" id="modal">
+  <div class="env" id="env">
+    <div class="env-hull"></div><div class="env-pocket"></div><div class="env-lid"></div>
+    <div class="seal"><span>F</span></div>
+  </div>
+  <div class="prompt">Para Fany • Toca para abrir</div>
+</div>
+
+<div class="wrap" id="wrap">
+  <div class="inner">
+    <div class="bar">
+      <div class="badge"><span class="beacon"></span><span>Para: Fany</span></div>
+      <span class="tag">disculpa.exe</span>
+    </div>
+
+    <div class="console" id="console"></div>
+
+    <div class="body" id="body">
+      <h1>Fany, te debo una disculpa</h1>
+
+      <p class="t">Dije cosas que no debí decir, y entiendo por qué te dolió escucharlo.</p>
+
+      <p class="t">Mis palabras fueron injustas contigo y las dije mal. No intento justificarlas ni quitarles peso. Lo siento de verdad, y voy a cuidar mucho más cómo hablo, aunque sea de broma.</p>
+
+      <p class="t">Y para realmente pedirte disculpas te hago esto, <span class="em">Te quiero</span> </p>
+
+      <span class="close">Perdóname, Fany.</span>
+
+      <div class="stage on" id="ask">
+        <div class="qbox">
+          <h2>¿Podemos hablar con calma?</h2>
+          <p class="sub">Sin presión. Tómate el tiempo que necesites.</p>
+          <div class="actions">
+            <button class="yes" id="yes">Sí, hablemos 🙂</button>
+            <button class="later" id="later">Aún necesito tiempo</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage" id="accepted">
+        <div class="done">
+          <h2>Gracias por escucharme</h2>
+          <p>Te escribo en cuanto abras el chat. Y gracias por darme la oportunidad de hablarlo.</p>
+          <p class="s">(Si WhatsApp no se abrió solo, puedes escribirme tú directamente.)</p>
+        </div>
+      </div>
+
+      <div class="stage" id="time">
+        <div class="done">
+          <h2>Está bien, lo entiendo</h2>
+          <p>Tómate todo el tiempo que necesites. Cuando quieras hablar, aquí voy a estar.</p>
+          <p class="s">(Si WhatsApp no se abrió solo, puedes escribirme tú directamente.)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const MI_WHATSAPP = "5215574320660";
+
+/* Estrellas */
+const cv = document.getElementById('stars'), cx = cv.getContext('2d');
+let ps = [];
+function init(){
+  cv.width = innerWidth; cv.height = innerHeight;
+  ps = Array.from({length: Math.floor(cv.width*cv.height/9000)}, () => ({
+    x: Math.random()*cv.width, y: Math.random()*cv.height,
+    r: Math.random()*1.5+.4, a: Math.random()*.7+.2, v: Math.random()*.008+.003
+  }));
+}
+addEventListener('resize', init); init();
+(function draw(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  for(const p of ps){
+    p.a += p.v; if(p.a > .9 || p.a < .2) p.v = -p.v;
+    cx.fillStyle = `rgba(223,186,115,${Math.abs(p.a)})`;
+    cx.beginPath(); cx.arc(p.x,p.y,p.r,0,Math.PI*2); cx.fill();
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* Sobre */
+const env = document.getElementById('env'), modal = document.getElementById('modal'), wrap = document.getElementById('wrap');
+let opened = false;
+env.addEventListener('click', () => {
+  if(opened) return; opened = true;
+  env.classList.add('open');
+  setTimeout(() => {
+    modal.classList.add('vanished');
+    wrap.classList.add('show');
+    setTimeout(stream, 450);
+  }, 750);
+});
+
+/* Consola */
+const lines = [
+  '<span class="c-p">&gt;</span> cargando <span class="c-v">disculpa</span>.js ...',
+  '<span class="c-p">&gt;</span> const <span class="c-v">remitente</span> = <span class="c-s">"Miguel"</span>;',
+  '<span class="c-p">&gt;</span> const <span class="c-v">destinataria</span> = <span class="c-s">"Fany"</span>;',
+  '<span class="c-p">&gt;</span> mensaje: <span class="c-s">"lo siento de verdad"</span>'
+];
+const con = document.getElementById('console'); let i = 0;
+function stream(){
+  if(i < lines.length){
+    const d = document.createElement('div'); d.innerHTML = lines[i++]; con.appendChild(d);
+    setTimeout(stream, 400);
+  } else {
+    const c = document.createElement('span'); c.className = 'caret'; con.appendChild(c);
+    setTimeout(() => document.getElementById('body').classList.add('on'), 320);
+  }
+}
+
+/* Respuestas */
+const ask = document.getElementById('ask'), acc = document.getElementById('accepted'), tm = document.getElementById('time');
+document.getElementById('yes').addEventListener('click', () => {
+  const msg = encodeURIComponent("Hola Miguel, leí tu carta. Podemos hablar.");
+  ask.classList.remove('on'); acc.classList.add('on');
+  window.open(`https://wa.me/${MI_WHATSAPP}?text=${msg}`, '_blank');
+});
+document.getElementById('later').addEventListener('click', () => {
+  const msg = encodeURIComponent("Hola Miguel, leí tu carta. Aún necesito tiempo.");
+  ask.classList.remove('on'); tm.classList.add('on');
+  window.open(`https://wa.me/${MI_WHATSAPP}?text=${msg}`, '_blank');
+});
+</script>
+</body>
+</html>
